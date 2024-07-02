@@ -15,13 +15,34 @@ connection
         })
 
 app.set('view engine', 'ejs')
+app.use(express.static('public'))
+
+app.use(bodyparser.urlencoded({extended:false}))
 
 app.get('/', (req, res) =>{
-    res.render("index")
+    //SELECT * FROM pergunta
+    Pergunta.findAll({raw: true, order:[
+        ['id', 'DESC']
+    ]}).then(perguntas =>{
+        res.render('index',{
+            perguntas: perguntas
+        })
+    })
 })
 
 app.get('/perguntar', (req, res) =>{
     res.render('perguntar')
+})
+
+app.post('/salvarpergunta', (req, res) =>{
+    let titulo = req.body.titulo
+    let descricao = req.body.descricao
+    Pergunta.create({
+        titulo: titulo,
+        descricao: descricao
+    }).then(()=>{
+        res.redirect('/')
+    })
 })
 
 app.listen(port, (erro) =>{
