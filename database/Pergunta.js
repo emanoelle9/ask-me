@@ -1,7 +1,7 @@
 const {Sequelize} = require('@sequelize/core')
 const connection = require('./database')
 
-const Pergunta = connection.define('pergunta',{
+const Pergunta = connection.define('pergunta', {
     titulo: {type: Sequelize.STRING, allowNull: false},
     descricao: {type: Sequelize.TEXT, allowNull: false}
 })
@@ -12,7 +12,7 @@ Pergunta.sync({force: false})
         console.log('Tabela pergunta sicronizada')
         })
     .catch((error) =>{
-        console.log('Erro ao criar a tabela')
+        console.log('Erro ao criar a tabela', error)
 })
 
-module.exports=Pergunta
+module.exports=Pergunta;
