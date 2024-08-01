@@ -7,7 +7,7 @@ const Pergunta = connection.define('pergunta', {
 })
 
 //CREATE TABLE IF NOT EXISTS
-Pergunta.sync({force: false})
+Pergunta.sync({force: true})
     .then(()=>{
         console.log('Tabela pergunta sicronizada')
         })
